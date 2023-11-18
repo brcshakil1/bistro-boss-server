@@ -46,7 +46,7 @@ async function run() {
 
     // middleware
     const verifyToken = (req, res, next) => {
-      console.log("inside verify token", req.headers.authorization);
+      // console.log("inside verify token", req.headers.authorization);
       if (!req.headers.authorization) {
         return res.status(401).send({ message: "unauthorized access" });
       }
@@ -113,7 +113,7 @@ async function run() {
 
     app.post("/api/v1/users", async (req, res) => {
       const user = req.body;
-      console.log(user);
+      // console.log(user);
       // insert email if user doesn't exists:
       // you can do this many ways (1. unique user, 2. upsert, 3. simple checking)
       const query = {
@@ -166,7 +166,7 @@ async function run() {
       try {
         const id = req.params.id;
         const item = req.body;
-        console.log(item);
+        // console.log(item);
         const filter = { _id: new ObjectId(id) };
         const updatedDoc = {
           $set: {
@@ -207,7 +207,6 @@ async function run() {
 
     app.get("/api/v1/user/carts", async (req, res) => {
       const email = req.query.email;
-      console.log(email);
       const query = { email: email };
       const result = await cartsCollection.find(query).toArray();
       res.send(result);
@@ -216,7 +215,6 @@ async function run() {
     // carts collection
     app.post("/api/v1/user/carts", async (req, res) => {
       const cartItem = req.body;
-      console.log(cartItem);
       const result = await cartsCollection.insertOne(cartItem);
       res.send(result);
     });
